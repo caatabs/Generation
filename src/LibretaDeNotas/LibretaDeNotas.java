@@ -5,6 +5,7 @@ import java.util.*;
 // TODO Hacer más bonito el menú. [DONE]
 // TODO Implementar validaciones.
 // TODO Hacer funciones que busquen la nota mínima y máxima de un alumno.
+// TODO Refactor: Cambiar el tipo de las notas a Double
 
 public class LibretaDeNotas {
     /** Menú -
@@ -30,18 +31,18 @@ public class LibretaDeNotas {
      * @param libretaDeNotas Libro de las notas de cada alumno existente en el curso.
      * @param cantidadNotas Valor ingresado inicialmente el cual representa la cantidad de notas que tiene cada alumno.
      * @return HashMap que retorna pares alumno-promedio como clave-valor..*/
-    private static Map<String, Double> promedioNotas(Map<String, List<Integer>> libretaDeNotas, Integer cantidadNotas) {
+    private static Map<String, Double> promedioNotas(Map<String, List<Double>> libretaDeNotas, Integer cantidadNotas) {
         // HashMap en el cual se almacenara el nombre del alumno junto con su promedio de notas.
         Map<String, Double> promedioAlumno = new HashMap<>();
 
         // Por cada alumno existente en la libreta de notas.
         for (String nombreAlumno : libretaDeNotas.keySet()){
-            List<Integer> notas = libretaDeNotas.get(nombreAlumno);
-            Integer sumaNotas = 0;
+            List<Double> notas = libretaDeNotas.get(nombreAlumno);
+            Double sumaNotas = 0.0;
             Double promedio;
 
             // Se calcula su promedio de notas correspondiente.
-            for (Integer nota : notas) {
+            for (Double nota : notas) {
                 sumaNotas += nota;
             }
             promedio = (double) sumaNotas / cantidadNotas;
@@ -69,8 +70,8 @@ public class LibretaDeNotas {
      * Función que muestra en pantalla los datos existentes en la libreta de notas
      * @param libretaDeNotas Libro de notas del curso actual.
      * */
-    private static void libretaDeNotas(Map<String, List<Integer>> libretaDeNotas) {
-        for (Map.Entry<String, List<Integer>> entry : libretaDeNotas.entrySet()) {
+    private static void libretaDeNotas(Map<String, List<Double>> libretaDeNotas) {
+        for (Map.Entry<String, List<Double>> entry : libretaDeNotas.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
     }
@@ -131,6 +132,46 @@ public class LibretaDeNotas {
         }
     }
 
+    /** Nota mínima del alumno -
+     *
+     * Función que busca la menor nota del alumno dentro de su conjunto de notas.
+     * @param libroDeNotas Libro de las notas de cada alumno existente en el curso.
+     * @param alumno Nombre del alumno al cual se le quiere buscar su menor nota.
+     * @return La nota mínima del alumno.
+     * */
+    private static Double notaMinima(Map<String, List<Double>>  libroDeNotas, String alumno) {
+        List<Double> notas = libroDeNotas.get(alumno);
+        Double notaMinima =  notas.get(0);
+
+        for (int i = 1; i < notas.size(); i++) {
+            if (notas.get(i) < notaMinima) {
+                notaMinima = notas.get(i);
+            }
+        }
+
+        return notaMinima;
+    }
+
+    /** Nota máxima del alumno -
+     *
+     * Función que busca la mayor nota del alumno dentro de su conjunto de notas.
+     * @param libroDeNotas Libro de las notas de cada alumno existente en el curso.
+     * @param alumno Nombre del alumno al cual se le quiere buscar su mayor nota.
+     * @return La nota máxima del alumno.
+     * */
+    private static Double notaMaxima(Map<String, List<Double>>  libroDeNotas, String alumno) {
+        List<Double> notas = libroDeNotas.get(alumno);
+        Double notaMaxima =  notas.get(0);
+
+        for (int i = 1; i < notas.size(); i++) {
+            if (notas.get(i) > notaMaxima) {
+                notaMaxima = notas.get(i);
+            }
+        }
+
+        return notaMaxima;
+    }
+
     /** Promedio del curso -
      *
      * Función que calcula el promedio actual del curso.
@@ -148,6 +189,9 @@ public class LibretaDeNotas {
         return promedio;
     }
 
+    /** Comparar el promedio del alumno con el promedio del curso -
+     * TODO add documentation.
+     * */
     protected static void compararNota(Map<String, Double> promedioCurso, Integer cantidadAlumnos){
         Scanner scannerAlumno = new Scanner(System.in);
 
@@ -175,7 +219,7 @@ public class LibretaDeNotas {
         Integer cantidadAlumnos;
         Integer cantidadNotas;
 
-        Map<String, List<Integer>> libretaDeNotas = new HashMap<>();
+        Map<String, List<Double>> libretaDeNotas = new HashMap<>();
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("¡Bienvenido a la Libreta de Notas del curso! Por favor, introduzca la cantidad de alumnos en este curso: ");
@@ -187,17 +231,17 @@ public class LibretaDeNotas {
         // Ingreso nombre del alumno 'i'
         for (int i = 0; i < cantidadAlumnos; i++) {
             String nombreAlumno;
-            List<Integer> notas = new ArrayList<>();
+            List<Double> notas = new ArrayList<>();
 
             System.out.println("Ingrese el nombre del " + (i+1)+ "°" +" Alumno");
             nombreAlumno = scanner.nextLine();
 
             // Ingreso notas del alumno 'i' correspondiente
             for (int j = 0; j < cantidadNotas; j++) {
-                Integer nota;
+                Double nota;
 
                 System.out.println("Ingrese la " + (j + 1) +"° del Alumno "+ nombreAlumno + " : ");
-                nota = Integer.parseInt(scanner.nextLine());
+                nota = Double.parseDouble(scanner.nextLine());
                 notas.add(nota);
             }
 
