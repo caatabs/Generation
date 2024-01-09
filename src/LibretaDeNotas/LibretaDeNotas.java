@@ -2,10 +2,7 @@ package LibretaDeNotas;
 
 import java.util.*;
 
-// TODO Hacer más bonito el menú. [DONE]
 // TODO Implementar validaciones.
-// TODO Hacer funciones que busquen la nota mínima y máxima de un alumno.
-// TODO Refactor: Cambiar el tipo de las notas a Double
 
 public class LibretaDeNotas {
     /** Menú -
@@ -189,15 +186,15 @@ public class LibretaDeNotas {
         Double notaMinima = notaMinima(libretaDeNotas, nombreAlumno);
         Double notaMaxima = notaMaxima(libretaDeNotas, nombreAlumno);
 
-        if (Objects.equals(promedioAlumno, notaMinima) && Objects.equals(promedioAlumno, notaMaxima)) {
+        if (promedioAlumno.equals(notaMinima) && promedioAlumno.equals(notaMaxima)) {
             System.out.println("El promedio final del alumno " + nombreAlumno + " como su nota mínima y nota máxima es "
                     + promedioAlumno + ".");
         }
-        else if (Objects.equals(promedioAlumno, notaMaxima)) {
+        else if (promedioAlumno.equals(notaMaxima)) {
             System.out.println("El promedio final del alumno " + nombreAlumno + " y su mayor nota es " + promedioAlumno +
                     ". Mientras que su menor nota fue " + notaMinima + ".");
         }
-        else if (Objects.equals(promedioAlumno, notaMinima)) {
+        else if (promedioAlumno.equals(notaMinima)) {
             System.out.println("El promedio final del alumno " + nombreAlumno + " y su menor nota es " + promedioAlumno +
                     ". Mientras que su mayor nota fue " + notaMaxima + ".");
         }
@@ -225,7 +222,9 @@ public class LibretaDeNotas {
     }
 
     /** Comparar el promedio del alumno con el promedio del curso -
-     * TODO add documentation.
+     * Función que compara el promedio del alumno con el promedio del curso.
+     * @param promedioCurso HashMap del promedio de cada uno de los alumnos del curso.
+     * @param cantidadAlumnos Valor ingresado inicialmente el cual representa la cantidad de alumnos presentes en el curso.
      * */
     protected static void compararNota(Map<String, Double> promedioCurso, Integer cantidadAlumnos){
         Scanner scannerAlumno = new Scanner(System.in);
@@ -239,7 +238,7 @@ public class LibretaDeNotas {
         if (promedioAlumno > promedioClase) {
             System.out.println("El promedio del alumno " + nombreAlumno + " es superior al promedio del curso.");
         }
-        else if (promedioAlumno == promedioClase) {
+        else if (promedioAlumno.equals(promedioClase)) {
             System.out.println("El promedio del alumno " + nombreAlumno + " es igual al promedio del curso.");
         }
         else {
