@@ -62,8 +62,32 @@ public class LibretaDeNotas {
      *
      * A partir del nombre del alumno ingresado se evalúa si su promedio es aprobado o reprobado
      */
-    private static void evaluacion(String nombreAlumno, Map<String, Double> promedioAlumno) {
+    private static void evaluacion(Map<String, Double> promedioCurso) {
+        Scanner scannerAlumno = new Scanner(System.in);
 
+        System.out.println("Ingrese el nombre del alumno: ");
+        String nombreAlumno = scannerAlumno.nextLine();
+
+        Double promedioAlumno = promedioAlumno(promedioCurso, nombreAlumno);
+
+        if (promedioAlumno >= 0 && promedioAlumno <= 3) {
+            System.out.println("La calificación final del alumno " + nombreAlumno +" es 'No aprobado'.");
+        }
+        else if (promedioAlumno > 3 && promedioAlumno <= 5) {
+            System.out.println("La calificación final del alumno " + nombreAlumno +" es 'Insuficiente'.");
+        }
+        else if (promedioAlumno > 5 && promedioAlumno <= 8) {
+            System.out.println("La calificación final del alumno " + nombreAlumno +" es 'Aceptable'.");
+        }
+        else if (promedioAlumno > 8 && promedioAlumno < 10) {
+            System.out.println("La calificación final del alumno " + nombreAlumno +" es 'Sobresaliente'.");
+        }
+        else if (promedioAlumno == 10) {
+            System.out.println("La calificación final del alumno " + nombreAlumno +" es 'Excelente'.");
+        }
+        else {
+            System.out.println("Entrada inválida");
+        }
     }
 
     /** Promedio del Alumno -
@@ -139,8 +163,8 @@ public class LibretaDeNotas {
                     libretaDeNotas(libretaDeNotas);
                     break;
                 case 3:
-                    System.out.println("Ingrese el nombre del Alumno: ");
-                    String nombreAlumno = scanner.nextLine();
+                    Map<String, Double> promedioCurso = promedioNotas(libretaDeNotas, cantidadNotas);
+
                     break;
                 case 4:
                     System.out.println("\\ comparacion promedio curso //");
