@@ -13,16 +13,17 @@ public class LibretaDeNotas {
      * Función que muestra en pantalla las diferentes acciones que puede realizar el cliente entorno a la libreta de notas.
      * */
     private static void displayMenu() {
-        System.out.println("                                                                                             ");
-        System.out.println("---------------------------------------------------------------------------------------------");
-        System.out.println("| ¿Que acción desea realizar con respecto a la libreta de notas del curso?                  |");
-        System.out.println("| 1.- Mostrar el promedio de notas por estudiante.                                          |");
-        System.out.println("| 2.- Mostrar el libro de notas del curso.                                                  |");
-        System.out.println("| 3.- Mostrar la evaluación correspondiente del alumno.                                     |");
-        System.out.println("| 4.- Mostrar si el promedio final del alumno es inferior o superior al promedio del curso. |");
-        System.out.println("| 5.- Salir del menú.                                                                       |");
-        System.out.println("---------------------------------------------------------------------------------------------");
-        System.out.println("                                                                                             ");
+        System.out.println("                                                                                                ");
+        System.out.println("------------------------------------------------------------------------------------------------");
+        System.out.println("| ¿Que acción desea realizar con respecto a la libreta de notas del curso?                     |");
+        System.out.println("| 1.- Mostrar el promedio de notas por estudiante.                                             |");
+        System.out.println("| 2.- Mostrar el promedio de notas de determinado estudiante, junto con su mayor y menor nota. |");
+        System.out.println("| 3.- Mostrar el libro de notas del curso.                                                     |");
+        System.out.println("| 4.- Mostrar la evaluación correspondiente del alumno.                                        |");
+        System.out.println("| 5.- Mostrar si el promedio final del alumno es inferior o superior al promedio del curso.    |");
+        System.out.println("| 6.- Salir del menú.                                                                          |");
+        System.out.println("------------------------------------------------------------------------------------------------");
+        System.out.println("                                                                                                ");
     }
 
     /** Promedio de notas -
@@ -172,6 +173,23 @@ public class LibretaDeNotas {
         return notaMaxima;
     }
 
+    /** Datos del alumno
+     * //TODO documentation
+     * */
+    private static void datosAlumno(Map<String, List<Double>> libretaDeNotas, Map<String, Double> promedioCurso) {
+        Scanner scannerAlumno = new Scanner(System.in);
+
+        System.out.println("Ingrese el nombre del alumno: ");
+        String nombreAlumno = scannerAlumno.nextLine();
+
+        Double promedioAlumno = promedioAlumno(promedioCurso, nombreAlumno);
+        Double notaMinima = notaMinima(libretaDeNotas, nombreAlumno);
+        Double notaMaxima = notaMaxima(libretaDeNotas, nombreAlumno);
+
+        System.out.println("El promedio final del alumno " + nombreAlumno + " es " + promedioAlumno + ". Su mayor nota fue " +
+                notaMaxima + " mientras que su menor nota fue " + notaMinima + ".");
+
+    }
     /** Promedio del curso -
      *
      * Función que calcula el promedio actual del curso.
@@ -266,22 +284,25 @@ public class LibretaDeNotas {
                     libretaDePromedios(promedioCurso);
                     break;
                 case 2:
-                    libretaDeNotas(libretaDeNotas);
+                    datosAlumno(libretaDeNotas, promedioCurso);
                     break;
                 case 3:
-                    evaluacion(promedioCurso);
+                    libretaDeNotas(libretaDeNotas);
                     break;
                 case 4:
-                    compararNota(promedioCurso, cantidadAlumnos);
+                    evaluacion(promedioCurso);
                     break;
                 case 5:
+                    compararNota(promedioCurso, cantidadAlumnos);
+                    break;
+                case 6:
                     System.out.println("¡Gracias por utilizar nuestro programa!," +
                             "¡Esperamos que encuentres la información útil y valiosa para el seguimiento académico del curso!");
                     System.exit(0);
                 default:
                     System.out.println("La opción seleccionada no es válida. Por favor, elija nuevamente.");
             }
-        } while (chosenOption != 5);
+        } while (chosenOption != 6);
 
 
         scanner.close();
