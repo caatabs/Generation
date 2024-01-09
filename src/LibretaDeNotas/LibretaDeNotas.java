@@ -173,8 +173,11 @@ public class LibretaDeNotas {
         return notaMaxima;
     }
 
-    /** Datos del alumno
-     * //TODO documentation
+    /** Datos del alumno -
+     * Función que muestra en pantalla los datos asociados al alumno. Estos datos corresponden al promedio final del mismo,
+     * su nota máxima y su nota mínima.
+     * @param libretaDeNotas Libro de las notas de cada alumno existente en el curso.
+     * @param promedioCurso HashMap cuyos pares clave-valor corresponden a alumno-promedio.
      * */
     private static void datosAlumno(Map<String, List<Double>> libretaDeNotas, Map<String, Double> promedioCurso) {
         Scanner scannerAlumno = new Scanner(System.in);
@@ -186,10 +189,24 @@ public class LibretaDeNotas {
         Double notaMinima = notaMinima(libretaDeNotas, nombreAlumno);
         Double notaMaxima = notaMaxima(libretaDeNotas, nombreAlumno);
 
-        System.out.println("El promedio final del alumno " + nombreAlumno + " es " + promedioAlumno + ". Su mayor nota fue " +
-                notaMaxima + " mientras que su menor nota fue " + notaMinima + ".");
-
+        if (Objects.equals(promedioAlumno, notaMinima) && Objects.equals(promedioAlumno, notaMaxima)) {
+            System.out.println("El promedio final del alumno " + nombreAlumno + " como su nota mínima y nota máxima es "
+                    + promedioAlumno + ".");
+        }
+        else if (Objects.equals(promedioAlumno, notaMaxima)) {
+            System.out.println("El promedio final del alumno " + nombreAlumno + " y su mayor nota es " + promedioAlumno +
+                    ". Mientras que su menor nota fue " + notaMinima + ".");
+        }
+        else if (Objects.equals(promedioAlumno, notaMinima)) {
+            System.out.println("El promedio final del alumno " + nombreAlumno + " y su menor nota es " + promedioAlumno +
+                    ". Mientras que su mayor nota fue " + notaMaxima + ".");
+        }
+        else {
+            System.out.println("El promedio final del alumno " + nombreAlumno + " es " + promedioAlumno + ". Su mayor nota es " +
+                    notaMaxima + " mientras que su menor nota es " + notaMinima + ".");
+        }
     }
+
     /** Promedio del curso -
      *
      * Función que calcula el promedio actual del curso.
