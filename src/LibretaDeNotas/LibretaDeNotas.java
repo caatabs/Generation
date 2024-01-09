@@ -20,7 +20,7 @@ public class LibretaDeNotas {
      *
      * Función que calcula el promedio de cada alumno en base a sus notas.
      * @return HashMap cuya clave es el nombre del alumno y su valor asociado es el promedio de este.*/
-    private static void promedioNotas(Map<String, List<Integer>> libretaDeNotas, Integer cantidadNotas) {
+    private static Map<String, Double> promedioNotas(Map<String, List<Integer>> libretaDeNotas, Integer cantidadNotas) {
         // HashMap en el cual se almacenara el nombre del alumno junto con su promedio de notas.
         Map<String, Double> promedioAlumno = new HashMap<>();
 
@@ -44,6 +44,8 @@ public class LibretaDeNotas {
         for (Map.Entry<String, Double> entry : promedioAlumno.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
+
+        return promedioAlumno;
     }
 
     /** Libreta de notas -
@@ -62,7 +64,24 @@ public class LibretaDeNotas {
      */
     private static void evaluacion(String nombreAlumno, Map<String, Double> promedioAlumno) {
 
+    }
 
+    /** Promedio del Alumno -
+     *
+     * Obtiene el promedio del alumno dentro del curso.
+     * @param promediosAlumnos HashMap del promedio de cada uno de los alumnos del curso.
+     * @param alumno Nombre del alumno al cual se le quiere buscar su promedio.
+     *
+     * @return El promedio del alumno. En caso de no existir muestra en pantalla un mensaje de error y retorna null*/
+    private static Double promedioAlumno(Map<String, Double> promediosAlumnos, String alumno) {
+        Double promedio = promediosAlumnos.get(alumno);
+        if (promedio != null) {
+            return promedio;
+        }
+        else {
+            System.out.println("El alumno " + alumno + "no existe en el curso.");
+            return null;
+        }
     }
 
     /** Main -
